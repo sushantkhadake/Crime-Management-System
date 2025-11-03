@@ -1,6 +1,6 @@
 # Crime Management System — Documentation
 
-This generated README contains a clear and complete explanation of the Crime Management System suitable for use in reports or documentation. It mirrors the high-level content used to design the project skeleton.
+ the Crime Management System suitable for use in reports or documentation. It mirrors the high-level content used to design the project skeleton.
 
 ## What is a Crime Management System?
 
