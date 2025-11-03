@@ -1,0 +1,133 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row">
+  <div class="col-md-8">
+    <h2>Case #{{ case.id }}</h2>
+  </div>
+  <div class="col-md-4 text-end">
+    <a href="{{ url_for('view_cases') }}" class="btn btn-outline-primary">
+      <i class="fas fa-arrow-left"></i> Back to Cases
+    </a>
+  </div>
+</div>
+
+<div class="row mt-4">
+  <!-- Case Details -->
+  <div class="col-md-8">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Case Details</h5>
+      </div>
+      <div class="card-body">
+        <div class="row mb-3">
+          <div class="col-md-3"><strong>Title:</strong></div>
+          <div class="col-md-9">{{ case.title }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3"><strong>Complainant:</strong></div>
+          <div class="col-md-9">{{ case.complainant_name }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3"><strong>Location:</strong></div>
+          <div class="col-md-9">{{ case.location }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3"><strong>Description:</strong></div>
+          <div class="col-md-9">{{ case.description }}</div>
+        </div>
+        <div class="row mb-3">
+          <div class="col-md-3"><strong>Filed on:</strong></div>
+          <div class="col-md-9">{{ case.created_at }}</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Investigation Updates -->
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Investigation Updates</h5>
+      </div>
+      <div class="card-body">
+        {% for update in investigations %}
+        <div class="investigation-update mb-3">
+          <div class="d-flex justify-content-between">
+            <strong>{{ update.full_name }}</strong>
+            <small class="text-muted">{{ update.updated_at }}</small>
+          </div>
+          <p class="mb-0">{{ update.notes }}</p>
+          <hr>
+        </div>
+        {% else %}
+        <p class="text-muted">No investigation updates yet.</p>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Case Status -->
+  <div class="col-md-4">
+    <div class="card mb-4">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Update Case</h5>
+      </div>
+      <div class="card-body">
+        <form method="post">
+          <div class="mb-3">
+            <label class="form-label">Status</label>
+            <select name="status" class="form-select" required>
+              {% for status in statuses %}
+              <option value="{{ status }}" {% if case.status == status %}selected{% endif %}>
+                {{ status }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Assign To</label>
+            <select name="assigned_to" class="form-select">
+              <option value="">Select Officer</option>
+              {% for officer in officers %}
+              <option value="{{ officer.id }}" {% if case.assigned_to == officer.id %}selected{% endif %}>
+                {{ officer.full_name }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Investigation Notes</label>
+            <textarea name="notes" class="form-control" rows="4" placeholder="Add investigation update..."></textarea>
+          </div>
+
+          <button type="submit" class="btn btn-primary w-100">
+            <i class="fas fa-save"></i> Update Case
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Case Status Card -->
+    <div class="card">
+      <div class="card-body">
+        <h6 class="card-subtitle mb-3">Current Status</h6>
+        <div class="d-grid gap-2">
+          <div class="p-2 border rounded">
+            <small class="text-muted d-block">Status</small>
+            <span class="badge bg-{{ case.status|lower }} fs-6">{{ case.status }}</span>
+          </div>
+          <div class="p-2 border rounded">
+            <small class="text-muted d-block">Priority</small>
+            <span class="badge bg-{{ case.priority|lower }} fs-6">{{ case.priority }}</span>
+          </div>
+          <div class="p-2 border rounded">
+            <small class="text-muted d-block">Last Updated</small>
+            {{ case.updated_at }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

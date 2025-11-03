@@ -1,0 +1,61 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-8">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title mb-0">Register New FIR</h4>
+      </div>
+      <div class="card-body">
+        <form method="post" class="needs-validation" novalidate>
+          <div class="row">
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Title</label>
+              <input name="title" type="text" class="form-control" required>
+              <div class="invalid-feedback">Please provide a title</div>
+            </div>
+            
+            <div class="col-md-6 mb-3">
+              <label class="form-label">Complainant Name</label>
+              <input name="complainant" type="text" class="form-control" required>
+              <div class="invalid-feedback">Please provide complainant name</div>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-8 mb-3">
+              <label class="form-label">Location</label>
+              <input name="location" type="text" class="form-control" required>
+              <div class="invalid-feedback">Please provide incident location</div>
+            </div>
+            
+            <div class="col-md-4 mb-3">
+              <label class="form-label">Priority</label>
+              <select name="priority" class="form-select" required>
+                {% for priority in priorities %}
+                <option value="{{ priority }}" {% if priority == 'Medium' %}selected{% endif %}>
+                  {{ priority }}
+                </option>
+                {% endfor %}
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label class="form-label">Description</label>
+            <textarea name="description" class="form-control" rows="5" placeholder="Detailed description of the incident..."></textarea>
+          </div>
+
+          <div class="text-end">
+            <a href="{{ url_for('index') }}" class="btn btn-outline-secondary me-2">Cancel</a>
+            <button type="submit" class="btn btn-primary">
+              <i class="fas fa-save"></i> Register FIR
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

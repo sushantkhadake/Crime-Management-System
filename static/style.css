@@ -1,0 +1,104 @@
+/* Custom styles on top of Bootstrap */
+
+/* Hero section */
+.hero-section {
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    color: white;
+    padding: 60px 0;
+    margin-bottom: 30px;
+    border-radius: 0 0 20px 20px;
+}
+
+/* Feature cards */
+.feature-card {
+    transition: transform 0.3s ease;
+    margin: 15px 0;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-icon {
+    font-size: 2.5em;
+    color: #1e3c72;
+    margin-bottom: 15px;
+}
+
+/* Action cards */
+.action-card {
+    background: #fff;
+    border: none;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.action-card:hover {
+    transform: translateY(-5px);
+}
+
+.action-icon {
+    font-size: 2em;
+    color: #1e3c72;
+    margin-bottom: 10px;
+}
+
+/* Priority badges */
+.badge.bg-high { background-color: #dc3545 !important; }
+.badge.bg-medium { background-color: #ffc107 !important; }
+.badge.bg-low { background-color: #28a745 !important; }
+
+/* Status badges */
+.badge.bg-open { background-color: #17a2b8 !important; }
+.badge.bg-assigned { background-color: #6c757d !important; }
+.badge.bg-in-progress { background-color: #ffc107 !important; }
+.badge.bg-closed { background-color: #28a745 !important; }
+
+/* Forms */
+.form-card {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Table improvements */
+.table-hover tbody tr:hover {
+    background-color: rgba(30, 60, 114, 0.05);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #1e3c72;
+    border-radius: 4px;
+}
+
+/* Carousel customization */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #1e3c72;
+    border-radius: 50%;
+    padding: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .hero-section {
+        padding: 30px 0;
+    }
+    
+    .feature-card,
+    .action-card {
+        margin-bottom: 15px;
+    }
+}

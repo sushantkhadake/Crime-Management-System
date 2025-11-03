@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+  <h1>Recent FIRs</h1>
+  {% if firs and firs|length > 0 %}
+    <table class="table">
+      <thead>
+        <tr><th>ID</th><th>Title</th><th>Complainant</th><th>Status</th><th>Created</th></tr>
+      </thead>
+      <tbody>
+        {% for f in firs %}
+          <tr>
+            <td>{{ f.id }}</td>
+            <td>{{ f.title }}</td>
+            <td>{{ f.complainant_name }}</td>
+            <td>{{ f.status }}</td>
+            <td>{{ f.created_at }}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <p>No FIRs yet. <a href="/register">Register one</a>.</p>
+  {% endif %}
+{% endblock %}

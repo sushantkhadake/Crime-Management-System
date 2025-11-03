@@ -1,0 +1,144 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="hero-section text-center py-5 mb-4">
+  <h1>Crime Management System</h1>
+  <p class="lead">Efficient Digital Solution for Law Enforcement</p>
+</div>
+
+<!-- Feature Cards Carousel -->
+<div id="featureCarousel" class="carousel slide mb-5" data-bs-ride="carousel">
+  <div class="carousel-inner">
+    <div class="carousel-item active">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <div class="card-body text-center">
+              <i class="fas fa-file-alt feature-icon"></i>
+              <h5 class="card-title">FIR Registration</h5>
+              <p class="card-text">Digital complaint tracking and updates.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <div class="card-body text-center">
+              <i class="fas fa-search feature-icon"></i>
+              <h5 class="card-title">Case Tracking</h5>
+              <p class="card-text">Real-time updates and investigation status.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="row justify-content-center">
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <div class="card-body text-center">
+              <i class="fas fa-chart-bar feature-icon"></i>
+              <h5 class="card-title">Analytics</h5>
+              <p class="card-text">Comprehensive reports and crime statistics analysis.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card feature-card">
+            <div class="card-body text-center">
+              <i class="fas fa-user-shield feature-icon"></i>
+              <h5 class="card-title">Secure Access</h5>
+              <p class="card-text">Role-based access control for different authority levels.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#featureCarousel" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon"></span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#featureCarousel" data-bs-slide="next">
+    <span class="carousel-control-next-icon"></span>
+  </button>
+</div>
+
+<!-- Quick Actions -->
+<div class="row mb-4">
+  <div class="col-12">
+    <h2 class="text-center mb-4">Quick Actions</h2>
+  </div>
+  <div class="col-md-3">
+    <div class="card action-card">
+      <div class="card-body text-center">
+        <i class="fas fa-plus-circle action-icon"></i>
+        <h5 class="card-title">New FIR</h5>
+        <a href="/register" class="btn btn-primary">Register</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card action-card">
+      <div class="card-body text-center">
+        <i class="fas fa-search action-icon"></i>
+        <h5 class="card-title">View Cases</h5>
+        <a href="/cases" class="btn btn-primary">Browse</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card action-card">
+      <div class="card-body text-center">
+        <i class="fas fa-tasks action-icon"></i>
+        <h5 class="card-title">Assignments</h5>
+        <a href="/assignments" class="btn btn-primary">Manage</a>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card action-card">
+      <div class="card-body text-center">
+        <i class="fas fa-chart-pie action-icon"></i>
+        <h5 class="card-title">Reports</h5>
+        <a href="/reports" class="btn btn-primary">Generate</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Recent Activity -->
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Recent Activity</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Case ID</th>
+                <th>Title</th>
+                <th>Status</th>
+                <th>Priority</th>
+                <th>Last Updated</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for case in recent_cases %}
+              <tr>
+                <td>#{{ case.id }}</td>
+                <td>{{ case.title }}</td>
+                <td><span class="badge bg-{{ case.status_color }}">{{ case.status }}</span></td>
+                <td><span class="badge bg-{{ case.priority_color }}">{{ case.priority }}</span></td>
+                <td>{{ case.updated_at }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,129 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row mb-4">
+  <div class="col">
+    <h2>Crime Statistics & Reports</h2>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Summary Cards -->
+  <div class="col-md-3 mb-4">
+    <div class="card text-center">
+      <div class="card-body">
+        <h1 class="display-4">{{ stats.total }}</h1>
+        <p class="text-muted">Total Cases</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Status Distribution -->
+  <div class="col-md-9 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Case Status Distribution</h5>
+      </div>
+      <div class="card-body">
+        <div class="row">
+          {% for status in stats.by_status %}
+          <div class="col-md-3 text-center">
+            <div class="p-3 border rounded">
+              <h3>{{ status.count }}</h3>
+              <span class="badge bg-{{ status.status|lower }}">{{ status.status }}</span>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <!-- Priority Distribution -->
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Cases by Priority</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Priority</th>
+                <th>Count</th>
+                <th>Percentage</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for priority in stats.by_priority %}
+              <tr>
+                <td>
+                  <span class="badge bg-{{ priority.priority|lower }}">
+                    {{ priority.priority }}
+                  </span>
+                </td>
+                <td>{{ priority.count }}</td>
+                <td>
+                  {% set percentage = (priority.count / stats.total * 100)|round(1) %}
+                  <div class="progress">
+                    <div class="progress-bar bg-{{ priority.priority|lower }}" 
+                         role="progressbar"
+                         style="width: {{ percentage }}%">
+                      {{ percentage }}%
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Location Distribution -->
+  <div class="col-md-6 mb-4">
+    <div class="card">
+      <div class="card-header">
+        <h5 class="card-title mb-0">Top Locations</h5>
+      </div>
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table">
+            <thead>
+              <tr>
+                <th>Location</th>
+                <th>Cases</th>
+                <th>Distribution</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for location in stats.by_location %}
+              <tr>
+                <td>{{ location.location }}</td>
+                <td>{{ location.count }}</td>
+                <td>
+                  {% set percentage = (location.count / stats.total * 100)|round(1) %}
+                  <div class="progress">
+                    <div class="progress-bar" 
+                         role="progressbar"
+                         style="width: {{ percentage }}%">
+                      {{ percentage }}%
+                    </div>
+                  </div>
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

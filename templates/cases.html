@@ -1,0 +1,104 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="row mb-4">
+  <div class="col-md-8">
+    <h2>Case List</h2>
+  </div>
+  <div class="col-md-4 text-end">
+    <a href="{{ url_for('register_fir') }}" class="btn btn-primary">
+      <i class="fas fa-plus"></i> New Case
+    </a>
+  </div>
+</div>
+
+<!-- Filters -->
+<div class="card mb-4">
+  <div class="card-body">
+    <form method="get" class="row g-3">
+      <div class="col-md-3">
+        <label class="form-label">Status</label>
+        <select name="status" class="form-select">
+          <option value="">All</option>
+          <option value="Open">Open</option>
+          <option value="Assigned">Assigned</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Closed">Closed</option>
+        </select>
+      </div>
+      <div class="col-md-3">
+        <label class="form-label">Priority</label>
+        <select name="priority" class="form-select">
+          <option value="">All</option>
+          <option value="High">High</option>
+          <option value="Medium">Medium</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="col-md-4">
+        <label class="form-label">Location</label>
+        <input type="text" name="location" class="form-control" placeholder="Search location...">
+      </div>
+      <div class="col-md-2">
+        <label class="form-label">&nbsp;</label>
+        <button type="submit" class="btn btn-primary w-100">
+          <i class="fas fa-search"></i> Filter
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<!-- Cases Table -->
+<div class="card">
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Priority</th>
+            <th>Assigned To</th>
+            <th>Last Updated</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for case in cases %}
+          <tr>
+            <td>#{{ case.id }}</td>
+            <td>{{ case.title }}</td>
+            <td>{{ case.location }}</td>
+            <td>
+              <span class="badge bg-{{ case.status|lower }}">
+                {{ case.status }}
+              </span>
+            </td>
+            <td>
+              <span class="badge bg-{{ case.priority|lower }}">
+                {{ case.priority }}
+              </span>
+            </td>
+            <td>{{ case.officer_name or 'Unassigned' }}</td>
+            <td>{{ case.updated_at }}</td>
+            <td>
+              <a href="{{ url_for('case_detail', case_id=case.id) }}" 
+                 class="btn btn-sm btn-outline-primary">
+                <i class="fas fa-eye"></i>
+              </a>
+            </td>
+          </tr>
+          {% else %}
+          <tr>
+            <td colspan="8" class="text-center">No cases found</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+{% endblock %}
